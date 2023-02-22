@@ -1,3 +1,6 @@
+#2048 Game, rework in python by Adrilava in february 2023, python 3.10
+
+
 import random
 import time
 
@@ -45,6 +48,17 @@ def calcAll(lst, calc = True):
 
 def deplace(val, calcul = True):
 
+    #Save Old Value
+    oldGame = [[0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]]
+    for i in range(4):
+        for p in range(4):
+            oldGame[i][p] = Game[i][p]
+
+
+
     if(val == 0): # LEFT
         for i in range(4):
             Game[i] = calcAll(Game[i])
@@ -67,8 +81,8 @@ def deplace(val, calcul = True):
             newLst = calcAll([Game[3][i],Game[2][i],Game[1][i],Game[0][i]])
             for p in range(4):
                 Game[3-p][i] = newLst[p]
-
-    return Game
+    if(oldGame == Game): return [0]
+    else: return Game
 
 
 def good_print(list):
