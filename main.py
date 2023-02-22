@@ -3,6 +3,10 @@ import time
 
 import keyboard
 
+import pygame
+pygame.init()
+
+
 
 Game = [[0,0,0,0],
         [0,0,0,0],
@@ -74,11 +78,34 @@ def good_print(list):
             print(list[i])
         print("----------")
 
+def DrawNumbers(X,Y,numberCompact):
+    listColor = [(238, 228, 218),(237, 224, 200),(242,177,121),(245,149,99),(246,124,95),(246,94,59),(237,207,114),(237,204,97),(237,200,80),(237,197,63),(227,188,53)]
+    listWhere = [[10,90,0],[-6,86,0],[-13,70,5],[-14,53,11],[-14,40,14]]
+
+    if(numberCompact > len(listColor)): color = listColor[len(listColor)-1] #Get Color
+    else: color = listColor[numberCompact-1]
+
+    if (numberCompact > len(listColor)): size = 38
+    else: size = listWhere[len(str(2**numberCompact))-1][1]
+
+    if(numberCompact != 0):
+        font = pygame.font.SysFont(None, size)
+        img = font.render(str(2**numberCompact), True, color)
+        screen.blit(img, (100*(X-1)+listWhere[len(str(2**numberCompact))-1][0]-25, 100*(Y+1)+listWhere[len(str(2**numberCompact))-1][2]-25))
+
+
+
+
 
 
 Init()
 
-while True:
+screen = pygame.display.set_mode([500, 500])
+
+# Run
+running = True
+while running:
+
     if keyboard.is_pressed("LEFT"):
         good_print(deplace(0))
         while (keyboard.is_pressed("LEFT")): time.sleep(0)
@@ -94,3 +121,28 @@ while True:
     if keyboard.is_pressed("DOWN"):
         good_print(deplace(3))
         while(keyboard.is_pressed("DOWN")): time.sleep(0)
+
+    # Did the user click the window close button?
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # Fill the background with color
+    screen.fill((10, 10, 10))
+
+    # External Square
+    pygame.draw.rect(screen, (187, 173, 160), (50,50,400,400), 10, 10)
+
+    for i in range(3): # Draw lines
+        pygame.draw.line(screen, (187,173,160), ((i+1)*100+50, 50),((i+1)*100+50, 449)  , 10) # lines
+        pygame.draw.line(screen, (187,173,160), (50, (i+1)*100+50),(449, (i+1)*100+50), 10) #column
+
+    for i in range(4):
+        for p in range(4):
+            DrawNumbers(i+2,p,Game[p][i])
+
+
+    # Flip the display
+    pygame.display.flip()
+
+pygame.quit()
