@@ -106,12 +106,10 @@ def DrawNumbers(X,Y,numberCompact):
         pygame.draw.rect(screen, color, (58+98*(X-2), 58+98*(Y), 93, 93), 0, 0)
         font = pygame.font.SysFont(None, size)
         img = font.render(str(2**numberCompact), True, (0,0,0))
-        screen.blit(img, (100*(X-1)+listWhere[len(str(2**numberCompact))-1][0]-25, 100*(Y+1)+listWhere[len(str(2**numberCompact))-1][2]-25))
+        screen.blit(img, (99*(X-1)+listWhere[len(str(2**numberCompact))-1][0]-25, 99*(Y+1)+listWhere[len(str(2**numberCompact))-1][2]-25))
 
-
-
-
-
+def checkLose():
+    if
 
 Init()
 
