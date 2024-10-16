@@ -108,8 +108,6 @@ def DrawNumbers(X,Y,numberCompact):
         img = font.render(str(2**numberCompact), True, (0,0,0))
         screen.blit(img, (99*(X-1)+listWhere[len(str(2**numberCompact))-1][0]-25, 99*(Y+1)+listWhere[len(str(2**numberCompact))-1][2]-25))
 
-def checkLose():
-    if
 
 Init()
 
